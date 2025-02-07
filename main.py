@@ -1,7 +1,5 @@
 from flask import Flask, Response
 from plivo import plivoxml
-import streamlit as st
-import threading
 
 app = Flask(__name__)
 
@@ -29,12 +27,5 @@ def waiting_room():
 def operator_room():
     return Response(generate_operator_room_xml(), mimetype='application/xml')
 
-def run_flask():
-    app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False)
-
-threading.Thread(target=run_flask, daemon=True).start()
-
-st.title("Plivo Conference XML Generator")
-st.write("Use the following endpoints to get conference XML:")
-st.write("[Waiting Room XML](http://localhost:5000/waiting_room)")
-st.write("[Operator Room XML](http://localhost:5000/operator_room)")
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=False)
